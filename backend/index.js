@@ -54,6 +54,19 @@ app.get('/shoes', async (req, res) =>{
         res.status(500).send({message: error.message});
     }
 });
+
+//Route to Get One Shoes in database by id
+app.get('/shoes/:id', async (req, res) =>{
+    try {
+        const {id} = req.params;
+
+        const shoe = await Shoes.findById(id);
+        return res.status(200).json(shoe);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({message: error.message});
+    }
+});
 mongoose.connect(mongoDBURL)
     .then(() =>{
         console.log('App connected to database');
