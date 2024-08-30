@@ -67,6 +67,33 @@ app.get('/shoes/:id', async (req, res) =>{
         res.status(500).send({message: error.message});
     }
 });
+
+//Route for Update a Shoes
+app.put('/shoes/:id', async (req,res) =>{
+    try {
+        if(
+            !req.body.name ||
+            !req.body.brand ||
+            !req.body.color ||
+            !req.body.quantity ||
+            !req.body.price
+        ) {
+            return res.status(400).send({
+                message: 'Send all required field name,brand,color,quantity, price',
+            });
+        }
+       const {id} = req.params;
+       const result = await Shoes.findByIdAndUpdate(id, req.body);
+        if(!result){
+            return res.status(404).json({message: 'Shoes not found'});
+        }
+        return res.status(200).send({message: 'Shoes updated successfully'})
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({message: error.message});
+    }
+
+});
 mongoose.connect(mongoDBURL)
     .then(() =>{
         console.log('App connected to database');
