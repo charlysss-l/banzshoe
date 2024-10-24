@@ -1,41 +1,35 @@
-import express from 'express'
-import {PORT, mongoDBURL} from './config.js'
+// server.js
+import express from 'express';
 import mongoose from 'mongoose';
-import {Shoes} from './models/shoesModel.js';
-import shoesRoute from './routes/shoesRoute.js';
 import cors from 'cors';
+import shoesRoute from './routes/shoesRoute.js'; // Make sure this path is correct
+import { PORT, mongoDBURL } from './config.js'; // Ensure you have these configurations
 
 const app = express();
-//Middleware for parsing request body
-app.use(express.json());  
 
-//Middleware for handling CORS POLICY
-//Option 1. Allow All Origin with Default of cors(*)
-app.use(cors());
-//Option 2. Allow Custome Origins
-app.use(
-    cors({
-        origin:'http://localhost:5173',
-        methods:['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders:['Content-Type'],
-    })
-);
 
-app.get('/', (req, res) =>{
-    console.log(req)
-    return res.status(234).send('Hi Liz ganda!');
-})
+app.use(express.json());
 
-app.use('/shoes', shoesRoute);
+
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
+
+app.get('/', (req, res) => {
+    return res.status(200).send('API is running!');
+});
+
+app.use('/api/shoes', shoesRoute);
 
 mongoose.connect(mongoDBURL)
-    .then(() =>{
+    .then(() => {
         console.log('App connected to database');
-        app.listen(PORT, () =>{
-            console.group(`App is listening to post: ${PORT}`);
-        })
+        app.listen(PORT, () => {
+            console.log(`App is listening to port: ${PORT}`);
+        });
     })
-    .catch((error)=>{
+    .catch((error) => {
         console.log(error);
-
     });

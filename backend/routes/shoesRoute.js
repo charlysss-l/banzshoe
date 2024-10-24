@@ -35,11 +35,8 @@ router.post('/', async (req,res) =>{
    //Route to Get All Shoes in database
 router.get('/', async (req, res) =>{
        try {
-           const shoes = await Shoes.find({});
-           return res.status(200).json({
-               count:shoes.length,
-               data: shoes
-           });
+           const shoes = await Shoes.find();
+           return res.status(200).json({count:shoes.length, data: shoes});
        } catch (error) {
            console.log(error.message);
            res.status(500).send({message: error.message});
