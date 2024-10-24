@@ -15,7 +15,7 @@ app.use(cors({
 }));
 
 app.get('/', (req, res) => {
-    return res.status(200).send('API is running!');
+    res.send('Express app is running');
 });
 
 app.use('/api/shoes', shoesRoute);
