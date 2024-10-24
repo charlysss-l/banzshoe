@@ -1,6 +1,6 @@
-// ListProducts.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './ListProducts.module.css';
 
 const ListProducts = () => {
     const [shoes, setShoes] = useState([]);
@@ -11,10 +11,8 @@ const ListProducts = () => {
         const fetchShoes = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/shoes');
-                console.log('Fetched shoes:', response.data);
-                setShoes(response.data.data); 
+                setShoes(response.data.data);
             } catch (error) {
-                console.error('Error fetching shoes:', error);
                 setError('Failed to fetch shoes.');
             } finally {
                 setLoading(false);
@@ -33,10 +31,10 @@ const ListProducts = () => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>List of Products</h1>
             {shoes.length > 0 ? (
-                <table>
+                <table className={styles.table}>
                     <thead>
                         <tr>
                             <th>Name</th>

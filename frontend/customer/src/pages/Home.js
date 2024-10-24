@@ -8,8 +8,6 @@ const Home = () => {
         <h1 className={styles.homeTitle}>Hi Customer!</h1>
         <h6 className={styles.homeDesc}>Welcome to BanzShoes</h6>
       </div>
-
-       
     </div>
   )
 }
