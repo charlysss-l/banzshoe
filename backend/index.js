@@ -28,6 +28,5 @@ mongoose.connect(mongoDBURL)
         });
     })
     .catch((error) => {
-        console.error('Error connecting to the database:', error);
-        process.exit(1); 
+        console.log('Error connecting to the database:', error);
     });
