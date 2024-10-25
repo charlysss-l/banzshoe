@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
-import './ViewProduct.css'; // Import the CSS file
-
+import './ViewProduct.css';
 
 const ViewProduct = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
-       
+
     if (!apiUrl) {
         console.error("REACT_APP_API_URL is not defined!");
     } else {
         console.log('API URL:', apiUrl);
     }
-    
+
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -32,8 +31,10 @@ const ViewProduct = () => {
             }
         };
 
-        fetchShoes();
-    }, []);
+        if (apiUrl) {
+            fetchShoes();
+        }
+    }, [apiUrl]);
 
     if (loading) {
         return <div className="loading">Loading...</div>;

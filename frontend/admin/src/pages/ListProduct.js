@@ -6,46 +6,43 @@ import CreateProduct from './CreateProduct';
 const ListProducts = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    // State hooks
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editingShoe, setEditingShoe] = useState(null);
 
-    // Check if apiUrl is defined and log it
     useEffect(() => {
         if (!apiUrl) {
             console.error("REACT_APP_API_URL is not defined!");
-            setError('Error: API URL is not defined!'); // Set error state if apiUrl is not set
-            setLoading(false); // Stop loading if there's an error
-            return; // Exit early
+            setError('Error: API URL is not defined!');
+            setLoading(false);
+        } else {
+            console.log('API URL:', apiUrl);
         }
-        console.log('API URL:', apiUrl);
-    }, [apiUrl]); // This effect runs only once when apiUrl changes
+    }, [apiUrl]);
 
-    // Fetch shoes when the component mounts
     useEffect(() => {
         const fetchShoes = async () => {
-            if (!apiUrl) return; // Check if apiUrl is defined before fetching
+            if (!apiUrl) return;
 
             try {
                 const response = await axios.get(`${apiUrl}/api/shoes`);
                 setShoes(response.data.data);
             } catch (error) {
                 setError('Failed to fetch shoes.');
+                console.error('Fetch error:', error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchShoes();
-    }, [apiUrl]); // Make sure apiUrl is in the dependency array
+    }, [apiUrl]);
 
-    // Function to handle Delete
     const handleDelete = async (id) => {
         try {
             await axios.delete(`${apiUrl}/api/shoes/${id}`);
-            setShoes(shoes.filter(shoe => shoe._id !== id));
+            setShoes((prevShoes) => prevShoes.filter(shoe => shoe._id !== id));
             alert('Product deleted successfully');
         } catch (error) {
             console.error('Failed to delete product', error);
@@ -53,7 +50,6 @@ const ListProducts = () => {
         }
     };
 
-    // Function to handle Edit
     const handleEdit = (shoe) => {
         setEditingShoe(shoe);
     };

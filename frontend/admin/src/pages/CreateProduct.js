@@ -4,12 +4,12 @@ import styles from './CreateProduct.module.css';
 
 const CreateProduct = ({ editingShoe, setEditingShoe }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
-       
-        if (!apiUrl) {
-            console.error("REACT_APP_API_URL is not defined!");
-        } else {
-            console.log('API URL:', apiUrl);
-        }
+
+    if (!apiUrl) {
+        console.error("REACT_APP_API_URL is not defined!");
+    } else {
+        console.log('API URL:', apiUrl);
+    }
 
     const [formData, setFormData] = useState({
         name: '',
@@ -19,7 +19,6 @@ const CreateProduct = ({ editingShoe, setEditingShoe }) => {
         price: '',
     });
 
-    // Populate the form when editingShoe changes
     useEffect(() => {
         if (editingShoe) {
             setFormData({
@@ -40,16 +39,13 @@ const CreateProduct = ({ editingShoe, setEditingShoe }) => {
         e.preventDefault();
         try {
             if (editingShoe) {
-                // Update the existing shoe
                 await axios.put(`${apiUrl}/api/shoes/${editingShoe._id}`, formData);
                 alert('Product updated successfully');
-                setEditingShoe(null); // Reset editing state
+                setEditingShoe(null);
             } else {
-                // Create a new shoe
                 await axios.post(`${apiUrl}/api/shoes`, formData);
                 alert('Product created successfully');
             }
-            // Reset form
             setFormData({ name: '', brand: '', color: '', quantity: '', price: '' });
         } catch (error) {
             console.error(error);
