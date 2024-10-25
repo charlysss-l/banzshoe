@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './ListProducts.module.css';
-import CreateProduct from './CreateProduct'; 
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import CreateProduct from './CreateProduct';
 
 const ListProducts = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    // State hooks
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [editingShoe, setEditingShoe] = useState(null); // For editing state
+    const [editingShoe, setEditingShoe] = useState(null);
 
+    // Check if apiUrl is defined and log it
+    useEffect(() => {
+        if (!apiUrl) {
+            console.error("REACT_APP_API_URL is not defined!");
+            setError('Error: API URL is not defined!'); // Set error state if apiUrl is not set
+            setLoading(false); // Stop loading if there's an error
+            return; // Exit early
+        }
+        console.log('API URL:', apiUrl);
+    }, [apiUrl]); // This effect runs only once when apiUrl changes
+
+    // Fetch shoes when the component mounts
     useEffect(() => {
         const fetchShoes = async () => {
+            if (!apiUrl) return; // Check if apiUrl is defined before fetching
+
             try {
                 const response = await axios.get(`${apiUrl}/api/shoes`);
                 setShoes(response.data.data);
@@ -24,7 +39,7 @@ const ListProducts = () => {
         };
 
         fetchShoes();
-    }, []);
+    }, [apiUrl]); // Make sure apiUrl is in the dependency array
 
     // Function to handle Delete
     const handleDelete = async (id) => {

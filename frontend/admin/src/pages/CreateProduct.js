@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './CreateProduct.module.css';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const CreateProduct = ({ editingShoe, setEditingShoe }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+       
+        if (!apiUrl) {
+            console.error("REACT_APP_API_URL is not defined!");
+        } else {
+            console.log('API URL:', apiUrl);
+        }
+
     const [formData, setFormData] = useState({
         name: '',
         brand: '',
@@ -43,7 +49,8 @@ const CreateProduct = ({ editingShoe, setEditingShoe }) => {
                 await axios.post(`${apiUrl}/api/shoes`, formData);
                 alert('Product created successfully');
             }
-            setFormData({ name: '', brand: '', color: '', quantity: '', price: '' }); // Reset form
+            // Reset form
+            setFormData({ name: '', brand: '', color: '', quantity: '', price: '' });
         } catch (error) {
             console.error(error);
             alert('Failed to submit the product');

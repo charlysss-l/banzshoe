@@ -14,8 +14,8 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 
 const allowedOrigins = [
-  'https://banzshoe-customer.vercel.app',  
-  'https://banzshoe-admin.vercel.app'      
+  'https://banzshoe-customer.vercel.app/',  
+  'https://banzshoe-admin.vercel.app/'      
 ];
 
 
