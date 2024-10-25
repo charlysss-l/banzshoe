@@ -13,23 +13,25 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(express.json());
 
-const allowedOrigins =[
-    'https://banzshoe-customer.vercel.app',
-    'https://banzshoe-admin.vercel.app'
+const allowedOrigins = [
+  'https://banzshoe-customer.vercel.app',  
+  'https://banzshoe-admin.vercel.app'      
 ];
 
+
 app.use(cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
+  origin: function (origin, callback) {
+      
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+          callback(new Error('Not allowed by CORS'));
       }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  }));
-  
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 
 app.use('/api/shoes', shoesRoute);
 
