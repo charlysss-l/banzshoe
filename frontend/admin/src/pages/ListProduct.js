@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './ListProducts.module.css';
+import CreateProduct from './CreateProduct'; 
 
 const ListProducts = () => {
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [editingShoe, setEditingShoe]  = useState(null); // For editing state
 
     useEffect(() => {
         const fetchShoes = async () => {
@@ -21,6 +23,23 @@ const ListProducts = () => {
 
         fetchShoes();
     }, []);
+
+    // Function to handle Delete
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/shoes/${id}`);
+            setShoes(shoes.filter(shoe => shoe._id !== id));
+            alert('Product deleted successfully');
+        } catch (error) {
+            console.error('Failed to delete product', error);
+            alert('Failed to delete product');
+        }
+    };
+
+    // Function to handle Edit
+    const handleEdit = (shoe) => {
+        setEditingShoe(shoe);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -42,6 +61,8 @@ const ListProducts = () => {
                             <th>Color</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +73,12 @@ const ListProducts = () => {
                                 <td>{shoe.color}</td>
                                 <td>{shoe.quantity}</td>
                                 <td>{shoe.price}</td>
+                                <td>
+                                    <button onClick={() => handleEdit(shoe)}>Update</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => handleDelete(shoe._id)}>Delete</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -59,6 +86,8 @@ const ListProducts = () => {
             ) : (
                 <p>No products found.</p>
             )}
+             <CreateProduct editingShoe={editingShoe} />
+           
         </div>
     );
 };
