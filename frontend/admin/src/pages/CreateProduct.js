@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './CreateProduct.module.css';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const CreateProduct = ({ editingShoe }) => {
+const CreateProduct = ({ editingShoe, setEditingShoe }) => {
     const [formData, setFormData] = useState({
         name: '',
         brand: '',
@@ -12,7 +13,7 @@ const CreateProduct = ({ editingShoe }) => {
         price: '',
     });
 
-    // Populate the form when editingShoe changes (i.e., when edit button is clicked)
+    // Populate the form when editingShoe changes
     useEffect(() => {
         if (editingShoe) {
             setFormData({
@@ -36,12 +37,13 @@ const CreateProduct = ({ editingShoe }) => {
                 // Update the existing shoe
                 await axios.put(`${apiUrl}/api/shoes/${editingShoe._id}`, formData);
                 alert('Product updated successfully');
+                setEditingShoe(null); // Reset editing state
             } else {
                 // Create a new shoe
                 await axios.post(`${apiUrl}/api/shoes`, formData);
                 alert('Product created successfully');
             }
-            setFormData({ name: '', brand: '', color: '', quantity: '', price: '' });  // Reset form
+            setFormData({ name: '', brand: '', color: '', quantity: '', price: '' }); // Reset form
         } catch (error) {
             console.error(error);
             alert('Failed to submit the product');

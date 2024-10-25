@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './ListProducts.module.css';
 import CreateProduct from './CreateProduct'; 
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const ListProducts = () => {
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [editingShoe, setEditingShoe]  = useState(null); // For editing state
+    const [editingShoe, setEditingShoe] = useState(null); // For editing state
 
     useEffect(() => {
         const fetchShoes = async () => {
@@ -87,8 +88,7 @@ const ListProducts = () => {
             ) : (
                 <p>No products found.</p>
             )}
-             <CreateProduct editingShoe={editingShoe} />
-           
+            <CreateProduct editingShoe={editingShoe} setEditingShoe={setEditingShoe} />
         </div>
     );
 };
