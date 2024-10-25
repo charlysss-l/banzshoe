@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './ListProducts.module.css';
 import CreateProduct from './CreateProduct'; 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ListProducts = () => {
     const [shoes, setShoes] = useState([]);
@@ -12,7 +13,7 @@ const ListProducts = () => {
     useEffect(() => {
         const fetchShoes = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/shoes');
+                const response = await axios.get(`${apiUrl}/api/shoes`);
                 setShoes(response.data.data);
             } catch (error) {
                 setError('Failed to fetch shoes.');
@@ -27,7 +28,7 @@ const ListProducts = () => {
     // Function to handle Delete
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/shoes/${id}`);
+            await axios.delete(`${apiUrl}/api/shoes/${id}`);
             setShoes(shoes.filter(shoe => shoe._id !== id));
             alert('Product deleted successfully');
         } catch (error) {

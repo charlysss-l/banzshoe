@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './CreateProduct.module.css';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const CreateProduct = ({ editingShoe }) => {
     const [formData, setFormData] = useState({
@@ -33,11 +34,11 @@ const CreateProduct = ({ editingShoe }) => {
         try {
             if (editingShoe) {
                 // Update the existing shoe
-                await axios.put(`http://localhost:5000/api/shoes/${editingShoe._id}`, formData);
+                await axios.put(`${apiUrl}/api/shoes/${editingShoe._id}`, formData);
                 alert('Product updated successfully');
             } else {
                 // Create a new shoe
-                await axios.post('http://localhost:5000/api/shoes', formData);
+                await axios.post(`${apiUrl}/api/shoes`, formData);
                 alert('Product created successfully');
             }
             setFormData({ name: '', brand: '', color: '', quantity: '', price: '' });  // Reset form

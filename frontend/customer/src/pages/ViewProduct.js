@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import './ViewProduct.css'; // Import the CSS file
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ViewProduct = () => {
     const [shoes, setShoes] = useState([]);
@@ -12,7 +13,7 @@ const ViewProduct = () => {
         const fetchShoes = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:5000/api/shoes');
+                const response = await axios.get(`${apiUrl}/api/shoes`);
                 console.log('Fetched shoes:', response.data);
                 setShoes(response.data.data);
             } catch (err) {
