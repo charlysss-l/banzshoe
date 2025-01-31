@@ -1,18 +1,37 @@
+
 .homeContainer {
-    display: flex;                    
-    flex-direction: column;           
-    justify-content: center;          
-    height: 80vh;                   
-    text-align: center;               
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
 }
 
+.homeCard {
+    background: rgb(25, 25, 112);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    max-width: 700px;
+}
+
+.homeCard:hover {
+    transform: translateY(-5px);
+}
+
+
 .homeTitle {
-    font-size: 50px;                 
-    margin: 0;                       
+    background: rgb(25, 25, 112);
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .homeDesc {
-    font-size: 20px;                 
-    margin: 10px 0;       
-    font-weight: 400;          
+    background: rgb(25, 25, 112);
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.9;
 }

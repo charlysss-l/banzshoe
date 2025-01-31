@@ -1,20 +1,19 @@
 .navbarAdmin {
-    background-color: rgb(245, 246, 246);
     padding: 10px 0;
-    border-bottom: 1px solid rgba(93, 58, 58, 0.318);
+    border-bottom: 1px solid rgb(25, 25, 112);
 }
 
 .NavTitle {
-    color: rgb(109, 40, 40);
+    color: rgb(25, 25, 112);
     font-size: 40px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 10px 0; /* Added padding for the title */
-    margin: 0 0 10px 0; /* Removed top margin and added bottom margin */
+    padding: 10px 0; 
+    margin: 0 0 10px 0; 
     text-align: center;
 }
 
 .NavTitle:hover {
-    color: rgb(56, 52, 52);
+    color: rgb(20, 20, 85);
     transition: color 0.3s ease;
 }
 
@@ -28,14 +27,14 @@
 
 .navLink {
     text-decoration: none;
-    color: black;
+    color: rgb(253, 253, 253);
     font-size: 18px;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
 }
 
 .navLink:hover {
-    background-color: rgb(189, 191, 191);
+    background-color: rgba(48, 71, 185, 0.1);
     border-radius: 10px;
     color: rgb(255, 255, 255);
 }

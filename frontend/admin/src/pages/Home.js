@@ -1,14 +1,18 @@
-import React from 'react'
-import styles from './Home.module.css'
+import React from 'react';
+import styles from './Home.module.css';
+
 const Home = () => {
   return (
     <div className={styles.homeContainer}>
-    <div>
-      <h1 className={styles.homeTitle}>Hi Admin!</h1>
-      <h6 className={styles.homeDesc}>Welcome to Admin's Panel of BanzShoes</h6>
+      <div className={styles.homeCard}>
+        
+          <h1 className={styles.homeTitle}>Welcome, Admin!</h1>
+          <p className={styles.homeDesc}>
+            Manage your store, track sales, and update products seamlessly.
+          </p>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
